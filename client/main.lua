@@ -77,16 +77,25 @@ Citizen.CreateThread(function()
 						Citizen.Wait(5000)
 						ClearPedTasks(PlayerPedId())
 								if GetEntityModel(ped) == GetHashKey("a_c_boar") then
-							TriggerServerEvent('esx_bobhunt:getpelt_boar')
-							elseif GetEntityModel(ped) == GetHashKey("a_c_mtlion") then
-							TriggerServerEvent('esx_bobhunt:getpelt_mtnlion')
-							elseif GetEntityModel(ped) == GetHashKey("a_c_deer") then
-							TriggerServerEvent('esx_bobhunt:getpelt_deer')
-							elseif GetEntityModel(ped) == GetHashKey("a_c_coyote") then
-							TriggerServerEvent('esx_bobhunt:getpelt_coyote')
-							elseif GetEntityModel(ped) == GetHashKey("a_c_rabbit_01") then
-							TriggerServerEvent('esx_bobhunt:getpelt_rabbit')
-							--TriggerServerEvent("esx_bobhunt:getpelt")
+									local item = 'pelt_boar'
+									local p_name = 'Boar pelt'
+									TriggerServerEvent('esx_bobhunt:getPelt', item, p_name)
+								elseif GetEntityModel(ped) == GetHashKey("a_c_mtlion") then
+									local item = 'pelt_mtnlion'
+									local p_name = 'Mountain Lion pelt'
+									TriggerServerEvent('esx_bobhunt:getPelt', item, p_name)
+								elseif GetEntityModel(ped) == GetHashKey("a_c_deer") then
+									local item = 'pelt_deer'
+									local p_name = 'Deer pelt'
+									TriggerServerEvent('esx_bobhunt:getPelt', item, p_name)
+								elseif GetEntityModel(ped) == GetHashKey("a_c_coyote") then
+									local item = 'pelt_coyote'
+									local p_name = 'Coyote pelt'
+									TriggerServerEvent('esx_bobhunt:getPelt', item, p_name)
+								elseif GetEntityModel(ped) == GetHashKey("a_c_rabbit_01") then
+									local item = 'pelt_rabbit'
+									local p_name = 'Rabbit pelt'
+									TriggerServerEvent('esx_bobhunt:getPelt', item,  p_name)
 								end
 						
 						Citizen.Wait(10)
@@ -108,7 +117,16 @@ Citizen.CreateThread(function()
 end)
 
 function CanSlaughterPed(ped)
-	if not IsPedAPlayer(ped) and not IsPedInAnyVehicle(ped,false) and not IsPedHuman(ped) and IsEntityDead(ped) and ped ~= oldped and GetEntityModel(ped) == GetHashKey("a_c_boar") or GetEntityModel(ped) == GetHashKey("a_c_coyote") or GetEntityModel(ped) == GetHashKey("a_c_deer") or GetEntityModel(ped) == GetHashKey("a_c_mtlion") or GetEntityModel(ped) == GetHashKey("a_c_rabbit_01")then 
+	if not IsPedAPlayer(ped) 
+	and not IsPedInAnyVehicle(ped,false) 
+	and not IsPedHuman(ped) 
+	and IsEntityDead(ped) 
+	and ped ~= oldped 
+	and GetEntityModel(ped) == GetHashKey("a_c_boar") 
+	or GetEntityModel(ped) == GetHashKey("a_c_coyote") 
+	or GetEntityModel(ped) == GetHashKey("a_c_deer") 
+	or GetEntityModel(ped) == GetHashKey("a_c_mtlion") 
+	or GetEntityModel(ped) == GetHashKey("a_c_rabbit_01") then 
 		return true
 	end
 	return false
@@ -184,25 +202,25 @@ function OpenSellSkinsMenu()
             title    = 'Do you have any pelts you want to sell?',
 			align    = 'top-left',
             elements = {
-                {label = 'Boar Pelt($1000)', value = 'pelt_boar'},
-				{label = 'Mountain Lion Pelt($500)', value = 'pelt_mtnlion'},
-				{label = 'Deer Pelt($300)', value = 'pelt_deer'},
-				{label = 'Coyote Pelt($200)', value = 'pelt_coyote'},
-				{label = 'Rabbit Pelt($50)', value = 'pelt_rabbit'}
+                {label = 'Boar Pelt($1000)', value = 'pelt_boar', p_name = 'Boar Pelt', p_price = 1000},
+				{label = 'Mountain Lion Pelt($500)', value = 'pelt_mtnlion', p_name = 'Mountain Lion Pelt', p_price = 500},
+				{label = 'Deer Pelt($300)', value = 'pelt_deer', p_name = 'Deer Pelt', p_price = 300},
+				{label = 'Coyote Pelt($200)', value = 'pelt_coyote', p_name = 'Coyote Pelt', p_price = 200},
+				{label = 'Rabbit Pelt($50)', value = 'pelt_rabbit', p_name = 'Rabbit Pelt', p_price = 100}
 				
             }
         },
         function(data, menu)
             if data.current.value == 'pelt_boar' then
-				TriggerServerEvent('esx_bobhunt:sellpelt_boar')
+				TriggerServerEvent('esx_bobhunt:sellpelt', data.current.value, data.current.p_name, data.current.p_price)
 			elseif data.current.value == 'pelt_mtnlion' then
-				TriggerServerEvent('esx_bobhunt:sellpelt_mtnlion')
+				TriggerServerEvent('esx_bobhunt:sellpelt', data.current.value, data.current.p_name, data.current.p_price)
 			elseif data.current.value == 'pelt_deer' then
-				TriggerServerEvent('esx_bobhunt:sellpelt_deer')
+				TriggerServerEvent('esx_bobhunt:sellpelt', data.current.value, data.current.p_name, data.current.p_price)
 			elseif data.current.value == 'pelt_coyote' then
-				TriggerServerEvent('esx_bobhunt:sellpelt_coyote')
+				TriggerServerEvent('esx_bobhunt:sellpelt', data.current.value, data.current.p_name, data.current.p_price)
 			elseif data.current.value == 'pelt_rabbit' then
-				TriggerServerEvent('esx_bobhunt:sellpelt_rabbit')
+				TriggerServerEvent('esx_bobhunt:sellpelt', data.current.value, data.current.p_name, data.current.p_price)
             end
         end,
         function(data, menu)
