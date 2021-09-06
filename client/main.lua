@@ -3,12 +3,10 @@ ESX = nil
 Citizen.CreateThread(function()
     while ESX == nil do
         Citizen.Wait(5)
-
 		TriggerEvent("esx:getSharedObject", function(library)
 			ESX = library
 		end)
     end
-
     if ESX.IsPlayerLoaded() then
 		ESX.PlayerData = ESX.GetPlayerData()
 	end
@@ -20,7 +18,7 @@ local playerpos = false
 
 Citizen.CreateThread(function()
     while(true) do
-		oPlayer = GetPlayerPed(-1)
+		oPlayer = PlayerPedId()
         InVehicle = IsPedInAnyVehicle(oPlayer, true)
 		playerpos = GetEntityCoords(oPlayer)
         Citizen.Wait(500)
@@ -102,8 +100,7 @@ Citizen.CreateThread(function()
 						SetPedAsNoLongerNeeded(oldped)
 						if DoesEntityExist(ped) then
 						DeleteEntity(ped)
-						end
-						
+						end						
 						Citizen.Wait(1000)
 						break
 					else
@@ -117,31 +114,15 @@ Citizen.CreateThread(function()
 end)
 
 function CanSlaughterPed(ped)
-	if not IsPedAPlayer(ped) 
-	and not IsPedInAnyVehicle(ped,false) 
-	and not IsPedHuman(ped) 
-	and IsEntityDead(ped) 
-	and ped ~= oldped 
-	and GetEntityModel(ped) == GetHashKey("a_c_boar") 
-	or GetEntityModel(ped) == GetHashKey("a_c_coyote") 
-	or GetEntityModel(ped) == GetHashKey("a_c_deer") 
-	or GetEntityModel(ped) == GetHashKey("a_c_mtlion") 
-	or GetEntityModel(ped) == GetHashKey("a_c_rabbit_01") then 
+	if not IsPedAPlayer(ped) and not IsPedInAnyVehicle(ped,false) and not IsPedHuman(ped) and IsEntityDead(ped) and ped ~= oldped and GetEntityModel(ped) == GetHashKey("a_c_boar") or GetEntityModel(ped) == GetHashKey("a_c_coyote") or GetEntityModel(ped) == GetHashKey("a_c_deer") or GetEntityModel(ped) == GetHashKey("a_c_mtlion") or GetEntityModel(ped) == GetHashKey("a_c_rabbit_01") then 
 		return true
 	end
 	return false
 end
 
-function hintToDisplay(text)
-	SetTextComponentFormat("STRING")
-	AddTextComponentString(text)
-	DisplayHelpTextFromStringLabel(0, 0, 1, -1)
-end
-
 local blips = {
       {title="Hunters Den", colour=4, id=463, x = -1132.93, y = 4948.42, z = 221.87}
-}
- 
+} 
       
 Citizen.CreateThread(function()
     for _, info in pairs(blips) do
@@ -176,7 +157,7 @@ Citizen.CreateThread(function()
 
         for k in pairs(gym) do
 		
-            local plyCoords = GetEntityCoords(GetPlayerPed(-1), false)
+            local plyCoords = GetEntityCoords(PlayerPedId(), false)
             local dist = Vdist(plyCoords.x, plyCoords.y, plyCoords.z, gym[k].x, gym[k].y, gym[k].z)
 
             if dist <= 1.5 then
