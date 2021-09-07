@@ -187,7 +187,7 @@ function OpenSellSkinsMenu()
 				{label = 'Mountain Lion Pelt($500)', value = 'pelt_mtnlion', p_name = 'Mountain Lion Pelt', p_price = 500},
 				{label = 'Deer Pelt($300)', value = 'pelt_deer', p_name = 'Deer Pelt', p_price = 300},
 				{label = 'Coyote Pelt($200)', value = 'pelt_coyote', p_name = 'Coyote Pelt', p_price = 200},
-				{label = 'Rabbit Pelt($50)', value = 'pelt_rabbit', p_name = 'Rabbit Pelt', p_price = 100}
+				{label = 'Rabbit Pelt($100)', value = 'pelt_rabbit', p_name = 'Rabbit Pelt', p_price = 100}
 				
             }
         },
